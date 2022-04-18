@@ -7,7 +7,7 @@ Adder::Adder(int number)
 {}
 
 
-auto Adder::add(int number) -> int
+auto Adder::add(const int number) const -> int
 {
     return _number + number;
 }

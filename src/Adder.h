@@ -3,8 +3,8 @@ namespace sw {
 class Adder
 {
 public:
-    explicit Adder(int number);
-    auto add(int number) -> int;
+    explicit Adder(const int number);
+    auto add(const int number) const -> int;
 
 private:
     int _number;
