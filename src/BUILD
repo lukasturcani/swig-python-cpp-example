@@ -29,11 +29,15 @@ cc_library(
 
 cc_library(
     name = "AdderWrap",
-    srcs = [
+    hdrs = [
         "Adder_wrap.cpp",
     ],
+    srcs = [
+        "Adder_wrap.cpp",
+        "Adder.cpp",
+        "Adder.h",
+    ],
     deps = [
-        ":Adder",
         "@python3.10//:python3.10",
     ],
     copts = [
