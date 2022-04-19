@@ -17,10 +17,12 @@ swig_python_cc_wrapper(
     swig = "Adder.i",
     hdr = "Adder.h",
     src = "Adder.cpp",
-    deps = [
-        "@python3.10//:python3.10",
-    ],
+    python_hdrs = "@python3.10//:python3.10",
     copts = [
-        "-Iexternal/python3.10",
+        "-Iexternal/python3.10/Include",
+        "-Ibazel-out/k8-opt/bin/src/python",
+        "-Ibazel-out/k8-dbg/bin/src/python",
+        "-Ibazel-out/k8-fastbuild/bin/src/python",
     ],
+    python_configure = "//src/python:ConfigureCPython",
 )

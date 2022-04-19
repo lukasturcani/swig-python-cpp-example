@@ -19,8 +19,9 @@ def swig_python_cc_wrapper(
     swig,
     hdr,
     src,
-    deps,
+    python_hdrs,
     copts,
+    python_configure,
     visibility = None,
 ):
     swig_ = "{}-SWIG".format(name)
@@ -62,8 +63,9 @@ def swig_python_cc_wrapper(
             ":{}".format(name),
             src,
             hdr,
+            python_configure,
         ],
-        deps = deps,
+        deps = [python_hdrs],
         copts = copts,
     )
     _copy_file(
@@ -71,5 +73,21 @@ def swig_python_cc_wrapper(
         dep = ":{}Wrap".format(name),
         src = "lib{}Wrap.so".format(name),
         dst = "_{}.so".format(name),
+        visibility = visibility,
+    )
+
+
+def configure_cpython(name, files, configure, visibility = None):
+    native.genrule(
+        name = name,
+        srcs = [configure, files],
+        outs = ["pyconfig.h"],
+        cmd = """ \
+            sh $(location {}) \
+            --enable-optimizations \
+            && cp pyconfig.h $(RULEDIR)/pyconfig.h \
+        """.format(
+            configure,
+        ),
         visibility = visibility,
     )
