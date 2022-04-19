@@ -25,31 +25,11 @@ swig_python_cc_wrapper(
     name = "Adder",
     swig = "Adder.i",
     hdr = "Adder.h",
-)
-
-
-cc_library(
-    name = "AdderWrap",
-    hdrs = [
-        ":Adder",
-    ],
-    srcs = [
-        ":Adder",
-        "Adder.cpp",
-        "Adder.h",
-    ],
+    src = "Adder.cpp",
     deps = [
         "@python3.10//:python3.10",
     ],
     copts = [
         "-Iexternal/python3.10",
     ],
-)
-
-
-copy_file(
-    name = "_Adder",
-    dep = ":AdderWrap",
-    src = "libAdderWrap.so",
-    dst = "_Adder.so",
 )

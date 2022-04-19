@@ -18,10 +18,15 @@ def swig_python_cc_wrapper(
     name,
     swig,
     hdr,
+    src,
+    deps,
+    copts,
     visibility = None,
 ):
     swig_ = "{}-SWIG".format(name)
     hdr_ = "{}-HDR".format(name)
+    src_ = "{}-SRC".format(name)
+
     native.filegroup(
         name = swig_,
         srcs = [swig]
@@ -47,4 +52,23 @@ def swig_python_cc_wrapper(
             swig_,
         ),
         visibility = visibility,
+    )
+    native.cc_library(
+        name = "{}Wrap".format(name),
+        hdrs = [
+            ":{}".format(name),
+        ],
+        srcs = [
+            ":{}".format(name),
+            src,
+            hdr,
+        ],
+        deps = deps,
+        copts = copts,
+    )
+    copy_file(
+        name = "_{}".format(name),
+        dep = ":{}Wrap".format(name),
+        src = "lib{}Wrap.so".format(name),
+        dst = "_{}.so".format(name),
     )
