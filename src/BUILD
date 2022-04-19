@@ -1,4 +1,4 @@
-load("//tools:macros.bzl", "copy_file")
+load("//tools:macros.bzl", "copy_file", "swig_python_cc_wrapper")
 
 cc_binary(
     name = "main",
@@ -11,7 +11,7 @@ cc_binary(
 )
 
 cc_library(
-    name = "Adder",
+    name = "AdderLib",
     srcs = [
         "Adder.cpp",
     ],
@@ -21,19 +21,31 @@ cc_library(
 )
 
 
-#swig_python_cc_wrapper(
-#    name = "Adder_wrap"
-#    interface = "Adder.i"
-#)
+filegroup(
+    name = "AdderInterface",
+    srcs = ["Adder.i"],
+)
+
+filegroup(
+    name = "AdderHeader",
+    srcs = ["Adder.h"]
+)
+
+
+swig_python_cc_wrapper(
+    name = "Adder",
+    src = ":AdderInterface",
+    hdr = ":AdderHeader",
+)
 
 
 cc_library(
     name = "AdderWrap",
     hdrs = [
-        "Adder_wrap.cpp",
+        ":Adder",
     ],
     srcs = [
-        "Adder_wrap.cpp",
+        ":Adder",
         "Adder.cpp",
         "Adder.h",
     ],
@@ -44,6 +56,7 @@ cc_library(
         "-Iexternal/python3.10",
     ],
 )
+
 
 copy_file(
     name = "_Adder",

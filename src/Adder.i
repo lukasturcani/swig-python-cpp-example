@@ -1,6 +1,6 @@
 %module Adder
 %{
-#include "Adder.h"
+#include "src/Adder.h"
 %}
 
 %include "Adder.h"
