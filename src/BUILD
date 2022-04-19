@@ -1,14 +1,5 @@
-load("//tools:macros.bzl", "copy_file", "swig_python_cc_wrapper")
+load("//tools:macros.bzl", "swig_python_cc_wrapper")
 
-cc_binary(
-    name = "main",
-    srcs = [
-        "main.cpp"
-    ],
-    deps = [
-        ":AdderWrap",
-    ],
-)
 
 cc_library(
     name = "AdderLib",

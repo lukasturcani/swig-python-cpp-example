@@ -1,4 +1,4 @@
-def copy_file(
+def _copy_file(
     name,
     dep,
     src,
@@ -66,7 +66,7 @@ def swig_python_cc_wrapper(
         deps = deps,
         copts = copts,
     )
-    copy_file(
+    _copy_file(
         name = "_{}".format(name),
         dep = ":{}Wrap".format(name),
         src = "lib{}Wrap.so".format(name),
