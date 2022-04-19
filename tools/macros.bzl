@@ -91,3 +91,11 @@ def configure_cpython(name, files, configure, visibility = None):
         ),
         visibility = visibility,
     )
+
+
+python_includes = [
+    "-Iexternal/python3.10/Include",
+    "-Ibazel-out/k8-opt/bin/src/python",
+    "-Ibazel-out/k8-dbg/bin/src/python",
+    "-Ibazel-out/k8-fastbuild/bin/src/python",
+]
