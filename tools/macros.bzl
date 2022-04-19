@@ -16,15 +16,15 @@ def copy_file(
 
 def swig_python_cc_wrapper(
     name,
-    src,
+    swig,
     hdr,
     visibility = None,
 ):
-    src_ = "{}-SRC".format(name)
+    swig_ = "{}-SWIG".format(name)
     hdr_ = "{}-HDR".format(name)
     native.filegroup(
-        name = src_,
-        srcs = [src]
+        name = swig_,
+        srcs = [swig]
     )
     native.filegroup(
         name = hdr_,
@@ -32,7 +32,7 @@ def swig_python_cc_wrapper(
     )
     native.genrule(
         name = name,
-        srcs = [src_, hdr_],
+        srcs = [swig_, hdr_],
         outs = ["{}_wrap.cpp".format(name), "{}.py".format(name)],
         cmd = """ \
             swig \
@@ -44,7 +44,7 @@ def swig_python_cc_wrapper(
                 $(location {}) \
         """.format(
             name,
-            src_,
+            swig_,
         ),
         visibility = visibility,
     )

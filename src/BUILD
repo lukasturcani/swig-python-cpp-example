@@ -23,7 +23,7 @@ cc_library(
 
 swig_python_cc_wrapper(
     name = "Adder",
-    src = "Adder.i",
+    swig = "Adder.i",
     hdr = "Adder.h",
 )
 
