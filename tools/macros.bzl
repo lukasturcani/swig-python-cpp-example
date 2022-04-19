@@ -20,9 +20,19 @@ def swig_python_cc_wrapper(
     hdr,
     visibility = None,
 ):
+    src_ = "{}-SRC".format(name)
+    hdr_ = "{}-HDR".format(name)
+    native.filegroup(
+        name = src_,
+        srcs = [src]
+    )
+    native.filegroup(
+        name = hdr_,
+        srcs = [hdr]
+    )
     native.genrule(
         name = name,
-        srcs = [src, hdr],
+        srcs = [src_, hdr_],
         outs = ["{}_wrap.cpp".format(name), "{}.py".format(name)],
         cmd = """ \
             swig \
@@ -34,7 +44,7 @@ def swig_python_cc_wrapper(
                 $(location {}) \
         """.format(
             name,
-            src,
+            src_,
         ),
         visibility = visibility,
     )

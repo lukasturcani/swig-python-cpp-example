@@ -21,21 +21,10 @@ cc_library(
 )
 
 
-filegroup(
-    name = "AdderInterface",
-    srcs = ["Adder.i"],
-)
-
-filegroup(
-    name = "AdderHeader",
-    srcs = ["Adder.h"]
-)
-
-
 swig_python_cc_wrapper(
     name = "Adder",
-    src = ":AdderInterface",
-    hdr = ":AdderHeader",
+    src = "Adder.i",
+    hdr = "Adder.h",
 )
 
 
