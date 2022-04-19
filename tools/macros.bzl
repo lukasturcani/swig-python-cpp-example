@@ -71,4 +71,5 @@ def swig_python_cc_wrapper(
         dep = ":{}Wrap".format(name),
         src = "lib{}Wrap.so".format(name),
         dst = "_{}.so".format(name),
+        visibility = visibility,
     )
