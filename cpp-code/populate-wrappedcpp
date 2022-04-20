@@ -1,0 +1,50 @@
+#!/usr/bin/env python
+
+import pathlib
+import shutil
+
+
+def main() -> None:
+
+    package_path = pathlib.Path(__file__).parent / "wrappedcpp"
+    package_src = package_path / "src" / "wrappedcpp"
+    bazel_src = pathlib.Path(__file__).parent / "bazel-bin" / "src"
+
+    _set_up_src_directory(package_src)
+    _copy_python_files(bazel_src, package_src)
+    _create_init_files(package_src)
+
+
+def _set_up_src_directory(
+    path: pathlib.Path,
+) -> None:
+
+    shutil.rmtree(path, ignore_errors=True)
+    path.mkdir(parents=True, exist_ok=True)
+    path.joinpath("__init__.py").touch()
+
+
+def _copy_python_files(
+    src: pathlib.Path,
+    dst: pathlib.Path,
+) -> None:
+
+    for path in src.rglob("*.py"):
+        directory_stem = path.parts[len(src.parts):-1]
+        new_directory = dst.joinpath(*directory_stem)
+        new_directory.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(path, new_directory / path.name)
+        so_name = f'_{str(path.name).replace(".py", ".so")}'
+        shutil.copyfile(path.parent / so_name, new_directory / so_name)
+
+
+def _create_init_files(
+    path: pathlib.Path
+) -> None:
+
+    for folder in filter(pathlib.Path.is_dir, path.rglob("*")):
+        folder.joinpath("__init__.py").touch()
+
+
+if __name__ == "__main__":
+    main()
