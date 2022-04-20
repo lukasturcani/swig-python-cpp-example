@@ -5,3 +5,5 @@ cpp-code/docs/build
 cpp-code/docs/xml
 cpp-code/docs/source/api
 cpp-code/wrappedcpp/src
+**/__pycache__
+**/*.egg-info
