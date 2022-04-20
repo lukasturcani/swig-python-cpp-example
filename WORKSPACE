@@ -26,4 +26,5 @@ git_repository(
     name = "benchmark",
     remote = "https://github.com/google/benchmark",
     commit = "dc901ff9090e2b931433790cc44afc3af3b09ab2",
+    shallow_since = "1649665074 +0100",
 )
