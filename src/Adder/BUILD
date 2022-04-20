@@ -9,6 +9,9 @@ cc_library(
     hdrs = [
         "Adder.h",
     ],
+    visibility = [
+        "//visibility:public",
+    ],
 )
 
 
