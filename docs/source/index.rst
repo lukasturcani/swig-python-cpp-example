@@ -11,8 +11,8 @@ Welcome to swig-python-cpp-example's documentation!
    :caption: Contents:
 
 
-.. doxygenclass:: sw::Adder
-   :members:
+.. autodoxygenfile:: Adder/Adder.h
+   :project: swig-python-cpp-example
 
 
 Indices and tables

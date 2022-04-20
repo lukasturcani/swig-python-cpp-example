@@ -13,6 +13,7 @@
 # import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
+import glob
 
 
 # -- Project information -----------------------------------------------------
@@ -32,7 +33,16 @@ extensions = [
 ]
 
 breathe_projects = {
-    "swig-python-cpp-example": "../xml"
+    "swig-python-cpp-example": "../xml",
+}
+breathe_projects_source = {
+    "swig-python-cpp-example": (
+        "../../src",
+        [
+            path[len("../../src/"):]
+            for path in glob.iglob("../../src/**/*.h", recursive=True)
+        ],
+    ),
 }
 breathe_default_project = "swig-python-cpp-example"
 
