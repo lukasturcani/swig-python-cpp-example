@@ -1,1 +1,5 @@
 bazel-*
+docs/html
+docs/latex
+docs/build
+docs/xml
