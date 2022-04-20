@@ -10,9 +10,7 @@ Welcome to swig-python-cpp-example's documentation!
     :maxdepth: 2
     :caption: Contents:
 
-    _rst/Adder
-    _rst/GenericAdder
-
+    api/library_root
 
 Indices and tables
 ==================

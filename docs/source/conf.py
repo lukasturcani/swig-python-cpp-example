@@ -14,6 +14,8 @@
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 import glob
+import itertools
+import textwrap
 
 
 # -- Project information -----------------------------------------------------
@@ -30,21 +32,32 @@ author = 'Lukas Turcani'
 # ones.
 extensions = [
     "breathe",
+    "exhale",
 ]
 
 breathe_projects = {
     "swig-python-cpp-example": "../xml",
 }
-breathe_projects_source = {
-    "swig-python-cpp-example": (
-        "../../src",
-        [
-            path[len("../../src/"):]
-            for path in glob.iglob("../../src/**/*.h", recursive=True)
-        ],
+breathe_default_project = "swig-python-cpp-example"
+exhale_args = {
+    # These arguments are required
+    "containmentFolder":     "./api",
+    "rootFileName":          "library_root.rst",
+    "doxygenStripFromPath":  "../..",
+    # Heavily encouraged optional argument (see docs)
+    "rootFileTitle":         "Library API",
+    # Suggested optional arguments
+    "createTreeView":        True,
+    "exhaleExecutesDoxygen": True,
+    "exhaleDoxygenStdin": textwrap.dedent(
+        """
+        INPUT = ../../src
+        EXCLUDE = ../../src/main.cpp
+        """
     ),
 }
-breathe_default_project = "swig-python-cpp-example"
+primary_domain = "cpp"
+highlight_language = "cpp"
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
