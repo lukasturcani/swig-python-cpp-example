@@ -1,6 +1,6 @@
-bazel-*
-docs/html
-docs/latex
-docs/build
-docs/xml
-docs/source/api
+cpp-code/bazel-*
+cpp-code/docs/html
+cpp-code/docs/latex
+cpp-code/docs/build
+cpp-code/docs/xml
+cpp-code/docs/source/api
