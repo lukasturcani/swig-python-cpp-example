@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import collections
 import pathlib
 import shutil
 
@@ -12,7 +13,6 @@ def main() -> None:
 
     _set_up_src_directory(package_src)
     _copy_python_files(bazel_src, package_src)
-    _create_init_files(package_src)
 
 
 def _set_up_src_directory(
@@ -29,21 +29,34 @@ def _copy_python_files(
     dst: pathlib.Path,
 ) -> None:
 
+    init_file_modules: dict[pathlib.Path, list[str]]
+    init_file_modules = collections.defaultdict(list)
+
     for path in src.rglob("*.py"):
-        directory_stem = path.parts[len(src.parts):-1]
+        directory_stem = path.parts[len(src.parts):-2]
         new_directory = dst.joinpath(*directory_stem)
         new_directory.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(path, new_directory / path.name)
-        so_name = f'_{str(path.name).replace(".py", ".so")}'
+        module_name = path.name.replace(".py", "")
+        so_name = f'_{module_name}.so'
         shutil.copyfile(path.parent / so_name, new_directory / so_name)
-
+        init_file_modules[new_directory / "__init__.py"].append(
+            module_name,
+        )
+    _create_init_files(init_file_modules)
 
 def _create_init_files(
-    path: pathlib.Path
+    init_file_modules: dict[pathlib.Path, list[str]],
 ) -> None:
 
-    for folder in filter(pathlib.Path.is_dir, path.rglob("*")):
-        folder.joinpath("__init__.py").touch()
+    for path, modules in init_file_modules.items():
+        path.touch()
+        with open(path, "w") as f:
+            f.write(
+                "\n".join(
+                    f"from . import {module}" for module in modules
+                ),
+            )
 
 
 if __name__ == "__main__":
