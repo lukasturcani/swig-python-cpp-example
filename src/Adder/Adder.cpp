@@ -2,7 +2,7 @@
 
 namespace sw {
 
-Adder::Adder(int number)
+Adder::Adder(const int number)
     : _number { number }
 {}
 

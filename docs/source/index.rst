@@ -7,12 +7,11 @@ Welcome to swig-python-cpp-example's documentation!
 ===================================================
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+    :maxdepth: 2
+    :caption: Contents:
 
-
-.. autodoxygenfile:: Adder/Adder.h
-   :project: swig-python-cpp-example
+    _rst/Adder
+    _rst/GenericAdder
 
 
 Indices and tables
