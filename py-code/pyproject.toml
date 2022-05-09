@@ -1,5 +1,8 @@
 [project]
 name = "pything"
+dependencies = [
+    "numpy",
+]
 
 [build-system]
 requires = ["setuptools"]
