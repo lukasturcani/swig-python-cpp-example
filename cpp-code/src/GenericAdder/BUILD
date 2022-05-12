@@ -18,5 +18,4 @@ swig_python_h_wrapper(
     hdr = "GenericAdder.h",
     python_hdrs = "@python3.10//:python3.10",
     copts = python_includes,
-    python_configure = "//src/python:ConfigureCPython",
 )

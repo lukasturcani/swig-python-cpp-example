@@ -22,5 +22,4 @@ swig_python_cc_wrapper(
     src = "Adder.cpp",
     python_hdrs = "@python3.10//:python3.10",
     copts = python_includes,
-    python_configure = "//src/python:ConfigureCPython",
 )

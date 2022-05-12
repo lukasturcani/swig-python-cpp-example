@@ -21,7 +21,6 @@ def swig_python_cc_wrapper(
     src,
     python_hdrs,
     copts,
-    python_configure,
     visibility = None,
 ):
     swig_ = "{}-SWIG".format(name)
@@ -63,7 +62,6 @@ def swig_python_cc_wrapper(
             ":{}".format(name),
             src,
             hdr,
-            python_configure,
         ],
         deps = [python_hdrs],
         copts = copts,
@@ -83,7 +81,6 @@ def swig_python_h_wrapper(
     hdr,
     python_hdrs,
     copts,
-    python_configure,
     visibility = None,
 ):
     swig_ = "{}-SWIG".format(name)
@@ -123,7 +120,6 @@ def swig_python_h_wrapper(
         srcs = [
             ":{}".format(name),
             hdr,
-            python_configure,
         ],
         deps = [python_hdrs],
         copts = copts,
@@ -137,25 +133,6 @@ def swig_python_h_wrapper(
     )
 
 
-def configure_cpython(name, files, configure, visibility = None):
-    native.genrule(
-        name = name,
-        srcs = [configure, files],
-        outs = ["pyconfig.h"],
-        cmd = """ \
-            sh $(location {}) \
-            --enable-optimizations \
-            && cp pyconfig.h $(RULEDIR)/pyconfig.h \
-        """.format(
-            configure,
-        ),
-        visibility = visibility,
-    )
-
-
 python_includes = [
-    "-Iexternal/python3.10/Include",
-    "-Ibazel-out/k8-opt/bin/src/python",
-    "-Ibazel-out/k8-dbg/bin/src/python",
-    "-Ibazel-out/k8-fastbuild/bin/src/python",
+    "-Iexternal/python3.10",
 ]
