@@ -1,5 +1,6 @@
 #include <cstddef>
-#include <memory>
+#include <cstdint>
+#include <vector>
 
 namespace sw {
 
@@ -26,13 +27,12 @@ public:
     /**
      * Get the data for an array.
      */
-    auto get_array() const -> Array;
+    auto get_array() -> Array;
     auto set_memory_to_int32() -> void;
 
 private:
 
-    std::unique_ptr<std::byte[]> _pointer;
-    std::size_t _size;
+    std::vector<std::byte> _array;
 
 };
 
